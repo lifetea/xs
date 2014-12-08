@@ -1,4 +1,5 @@
 var fs = require('fs');
+$      = require("cheerio");
 var  mongodb = require('mongodb');
 var  server  = new mongodb.Server('localhost', 27017, {auto_reconnect:true});
 var  db      = new mongodb.Db('xs', server, {safe:true});
@@ -36,8 +37,8 @@ var  db      = new mongodb.Db('xs', server, {safe:true});
     
 // });
 
-var a = "<!doctype><html><head><meta charset='utf-8'></head><body>";
-var b = "</body></html>";
+var a = "<!doctype><html><head><meta charset='utf-8'></head><body><div id='container'></div></body></html>";
+var b = "";
 
 db.open(function(err, db){
     if(!err){
@@ -46,14 +47,6 @@ db.open(function(err, db){
             if(err){
                 console.log(err);
             }
-           // collection.findOne(function(err,doc){
-           //  console.log('findOne');
-           //      console.log(doc);
-           //      fs.writeFile('./test.html',a+doc.title+b,function(err){
-           //          if(err) throw err;
-           //          console.log('has finished');
-           //      });
-           // });
             collection.find().sort({"_id":1}).toArray(function(err,docs){
                 var len = docs.length;
                 //console.log(len);
@@ -63,7 +56,8 @@ db.open(function(err, db){
                     chunks.push(content);
                 }
                 var html = chunks.join("");
-                fs.writeFile('./catalog.html', html,function(err){
+                var test = $(".container",a).append(html);
+                fs.writeFile('./wanmei/index.html', test,function(err){
                     if(err) throw err;
                     console.log('has finished');
                 });

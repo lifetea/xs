@@ -1,75 +1,36 @@
 var fs = require('fs');
 $      = require("cheerio");
+var async = require("async");
 var  mongodb = require('mongodb');
 var  server  = new mongodb.Server('localhost', 27017, {auto_reconnect:true});
 var  db      = new mongodb.Db('xs', server, {safe:true});
-// fs.readFile('./json.json',function(err,data){
-//     if(err) throw err;
+var template = ""; 
 
-//     var jsonObj = JSON.parse(data);
-//     var space = ' ';
-//     var newLine = '\n';
-//     var chunks = [];    
-//     var length = 0;
-
-//     for(var i=0,size=jsonObj.length;i<size;i++){
-//         var one = jsonObj[i];
-//         //what value you want 
-//         var value1 = one['value1'];
-//         var value2 = one['value2'];
-//         ....
-//         var value = value1 +space+value2+space+.....+newLine;
-//         var buffer = new Buffer(value);
-//         chunks.push(buffer);
-//         length += buffer.length;
-//     }
-    
-//     var resultBuffer = new Buffer(length);
-//     for(var i=0,size=chunks.length,pos=0;i<size;i++){
-//         chunks[i].copy(resultBuffer,pos);
-//         pos += chunks[i].length;
-//     }
-    
-//     fs.writeFile('./resut.text',resultBuffer,function(err){
-//         if(err) throw err;
-//         console.log('has finished');
-//     });
-    
-// });
-
-var a = "<!doctype><html><head><meta charset='utf-8'></head><body><div id='container'></div></body></html>";
-var b = "";
-
-db.open(function(err, db){
-    if(!err){
-        console.log('connect db');
-        db.collection('wanmei',{safe:true}, function(err, collection){
-            if(err){
-                console.log(err);
-            }
-            collection.find().sort({"_id":1}).toArray(function(err,docs){
-                var len = docs.length;
-                //console.log(len);
-                var chunks = [];
-                for(var i = 0;i<len;i++){
-                    var content = "<a href='"+docs[i].href+"'>"+docs[i].title+"</>";
-                    chunks.push(content);
-                }
-                var html = chunks.join("");
-                var test = $(".container",a).append(html);
-                fs.writeFile('./wanmei/index.html', test,function(err){
-                    if(err) throw err;
-                    console.log('has finished');
-                });
-            });            
-            // for (var i = 0,len=dataArr.length; i < len; i++) {
-            //     var tmp = {"title":dataArr[i]["attribs"].title,
-            //                "href" :dataArr[i]["attribs"].href,
-            //                "time" :new Date()}
-            //     collection.insert(tmp,{safe:true},function(err, result){
-            //         console.log(result);
-            //     }); 
-            // };
-        });
-    };
+async.waterfall([
+    function(cb){
+        fs.readFile('./tp/cat.htm',cb);
+    },
+    function(temp,cb){
+        template = temp.toString();
+        db.open(cb);
+    },
+    function(db,cb){
+        db.collection('wanmei',{safe:true}, cb);
+    },
+    function(collection,cb){
+        collection.find().sort({"_id":1}).toArray(cb);
+    },
+    function(docs,cb){
+        var len = docs.length;
+        var chunks = [];
+        for(var i = 0;i<len;i++){
+            var content = "<a href='"+docs[i].href+"'>"+docs[i].title+"</>";
+            chunks.push(content);
+        }
+        var html = $("#container",template).append(chunks.join(""));
+        fs.writeFile('./wanmei/index.html', html,cb);
+    }
+],
+function (err, results) {
+    // results is now equal to: {one: 1, two: 2}
 });

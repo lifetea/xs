@@ -1,3 +1,4 @@
+var http 	 = require("http");
 var fs = require('fs');
 $      = require("cheerio");
 var async = require("async");
@@ -21,7 +22,25 @@ async.waterfall([
         collection.find().sort({"_id":1}).toArray(cb);
     },
     function(docs,cb){
-        console.log(docs[0]);
+        var ob = docs[0];
+        
+        http.get(ob.href, function(res) {  
+        	var html = "";
+        	var size = 0;
+        	var chunks = [];
+        	res.on('data', function (chunk) {
+        		size += chunk.length;
+        		chunks.push(chunk);
+        		// html += chunk;
+        	});
+        	res.on('end', function(){
+        		var data = Buffer.concat(chunks, size);
+        		html = data.toString();
+        		var paragraphs = $("p",$("#content",html));
+        		console.log(paragraphs[0]);
+        		//inert(links);
+        	});
+        });
         // var len = docs.length;
         // var chunks = [];
         // for(var i = 0;i<len;i++){

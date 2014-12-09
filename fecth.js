@@ -17,10 +17,12 @@ var  inert   = function(dataarr){
 	            for (var i = 0,len=dataarr.length; i < len; i++) {
 	            	var attr = dataarr[i]["attribs"];
 	            	var filename = (url.parse(attr.href).pathname).slice(1,-1);
-	            	var href="http://wanmei.9dgx.com/"+filename;
+	            	var href=attr.href;
+	            	var rel ="./wanmei/";
 		            var tmp = {"title":attr.title,
 		            		   "href" :href,
 		            		   "filename" : filename,
+		            		   "rel" : rel,
 		            		   "flag" :0
 	            			}
 		            collection.insert(tmp,{safe:true},function(err, result){

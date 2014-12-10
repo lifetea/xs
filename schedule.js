@@ -10,10 +10,10 @@ var schedule = require('node-schedule');
 
 	　　var rule = new schedule.RecurrenceRule();
 
-	　　var times = [10,20,30,40,50];
-
-	　　rule.second = times;
-
+	　　//var times = [10,20,30,40,50];
+		var minutes = [15,16,17,18,19,20];
+//	　　rule.second = times;
+		rule.minute =minutes;
 	　　var c=0;
 	　　var j = schedule.scheduleJob(rule, function(){
 	　　 c++;

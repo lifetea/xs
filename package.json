@@ -21,6 +21,7 @@
     "cheerio": "^0.18.0",
     "iconv-lite": "^0.4.5",
     "mongodb": "^1.4.23",
-    "node-schedule": "^0.1.13"
+    "node-schedule": "^0.1.13",
+    "request": "^2.50.0"
   }
 }

@@ -1,11 +1,11 @@
-var http 	 = require("http");
+var request = require('request');
 var fs = require('fs');
-$      = require("cheerio");
+var cheerio      = require("cheerio");
 var async = require("async");
 var  mongodb = require('mongodb');
 var  server  = new mongodb.Server('localhost', 27017, {auto_reconnect:true});
 var  db      = new mongodb.Db('xs', server, {safe:true});
-var template = ""; 
+var template = "",filepath = ""; 
 
 async.waterfall([
     function(cb){
@@ -23,34 +23,18 @@ async.waterfall([
     },
     function(docs,cb){
         var ob = docs[0];
-        
-        http.get(ob.href, function(res) {  
-        	var html = "";
-        	var size = 0;
-        	var chunks = [];
-        	res.on('data', function (chunk) {
-        		size += chunk.length;
-        		chunks.push(chunk);
-        		// html += chunk;
-        	});
-        	res.on('end', function(){
-        		var data = Buffer.concat(chunks, size);
-        		html = data.toString();
-        		var paragraphs = $("p",$("#content",html));
-        		console.log(paragraphs[0]);
-        		//inert(links);
-        	});
-        });
-        // var len = docs.length;
-        // var chunks = [];
-        // for(var i = 0;i<len;i++){
-        //     var content = "<a href='"+docs[i].href+"'>"+docs[i].title+"</>";
-        //     chunks.push(content);
-        // }
-        // var html = $("#container",template).append(chunks.join(""));
-        // fs.writeFile('./wanmei/index.html', html,cb);
+        filepath = ""+ob.rel+ob.filename;
+        request(ob.href, cb);
+    },
+    function(response,body,cb){
+    	if(response.statusCode == 200){
+    		 $ = cheerio.load(body);
+     		html = $.html("#content .entry p");
+     		fs.writeFile(filepath, html,cb);
+    	}
     }
 ],
 function (err, results) {
+	console.log("finish");
     // results is now equal to: {one: 1, two: 2}
 });

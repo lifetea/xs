@@ -32,7 +32,7 @@ db.open(function(err, db){
                        // collection.remove({title:'hello'},{safe:true},function(err,result){
         //                   console.log(result);
         //               });
-
+//            	db.coll.findAndModify({query :{}, sort: {"_id" : -1}, remove:true})
                 // console.log(collection);
                 // 查询数据
                 // var tmp1 = {title:'hello'};

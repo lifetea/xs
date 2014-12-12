@@ -1,3 +1,4 @@
+var config = require("./config.json");
 var http 	 = require("http");
 var request = require('request');
 var url      = require("url");
@@ -7,7 +8,7 @@ $ 		 = require("cheerio");
 var  mongodb = require('mongodb');
 var  server  = new mongodb.Server('localhost', 27017, {auto_reconnect:true});
 var  db 	 = new mongodb.Db('xs', server, {safe:true});
-var  href = "http://www.wanmeishijiexiaoshuo.com/", links ="";
+var  href = config.href, links ="";
 
 async.waterfall([
 	 function(cb){

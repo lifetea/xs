@@ -1,3 +1,4 @@
+var config = require("./config.json");
 var http 	 = require("http");
 var request = require('request');
 var url      = require("url");
@@ -7,18 +8,26 @@ $ 		 = require("cheerio");
 var  mongodb = require('mongodb');
 var  server  = new mongodb.Server('localhost', 27017, {auto_reconnect:true});
 var  db 	 = new mongodb.Db('xs', server, {safe:true});
-var  href = "http://www.wanmeishijiexiaoshuo.com/", links ="",collect=null;
-var template = ""; 
+var links ="",collect=null,count=0;
+var template = "",eles =[]; 
 
 var update =function(){
 	async.waterfall([
-         function(cb){
-             fs.readFile('./tp/cat.htm',cb);
-         },
-		 function(temp,cb){
-        	 template = temp.toString();
-			 request(href, cb);
+		 function(cb){
+			fs.exists('./wanmei/index.htm', function (exists) {
+			  if(!!exists){
+				fs.readFile('./wanmei/index.htm',cb);
+			  }else{
+				fs.readFile('./tp/cat.htm',cb);
+			  }
+			});
 		 },
+         function(temp,cb){
+			 template = temp.toString();
+			 count = $("#container a",template).length;
+			 console.log(count);
+			 request(config.href, cb);
+         },
 		 function(response,body,cb){
 		  	if(response.statusCode == 200){
 		   		links = $("a",$(".cat_post",body)[0]);
@@ -30,11 +39,7 @@ var update =function(){
 		 },
 		 function(collection,cb){
 			 collect = collection;
-			 collection.count(cb)
-		 },
-		 function(count,cb){
 			 if(links.length > count){
-				 var arr = [];
 		         for (var i = count,len=links.length; i < len; i++) {
 		         	var attr = links[i]["attribs"];
 		         	var filename = (url.parse(attr.href).pathname).slice(1,-1);
@@ -47,35 +52,29 @@ var update =function(){
 		            		   "rel" : rel,
 		            		   "flag" :0
 		         	 };
-		             arr.push(tmp);
+			        eles.push(tmp);
 		         }
-		         collect.insert(arr,{safe:true},cb); 
+		         collect.insert(eles,{safe:true},cb); 
+		         console.log("complete insert");
 			 }
-			console.log("finish");
 		 },
 	    function(cb){
-//		 	collect.find().sort({"_id":1}).toArray(cb);
-//			 console.log("count");
-//			 collect.count(cb)
+	        var len = eles.length;
+	        var chunks = [];
+	        for(var i = 0;i<len;i++){
+	            var content = "<a href='"+ eles[i].filename +"'>"+eles[i].title+"</a>";
+	            chunks.push(content);
+	        }
+	        var html = $("#container",template).append(chunks.join(""));
+	        fs.writeFile('./wanmei/index.htm', html,cb);
 	    },
-	    function(count,cb){
-	    	console.log(docs);
-//	        var len = docs.length;
-//	        var chunks = [];
-//	        for(var i = 0;i<len;i++){
-//	            var content = "<a href='"+docs[i].href+"'>"+docs[i].title+"</>";
-//	            chunks.push(content);
-//	        }
-//	        var html = $("#container",template).append(chunks.join(""));
-//	        fs.writeFile('./wanmei/index.html', html,cb);
-	    }		 
+	    function(cb){
+	    	console.log("update");
+	    	db.close();
+	    }
 	 ],
 	 function (err, results) { });
 }
-
-
-
-
 
 
 exports.update = update;

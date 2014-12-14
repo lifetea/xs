@@ -11,11 +11,15 @@ async.waterfall([
 	     db.collection('wanmei',{safe:true}, cb);
 	 },
 	 function(collection,cb){
-		 collection.findAndRemove({}, [['_id', -1]],cb); 
-		 collection.count(cb);
-	 },
-	 function(count,cb){
-		 console.log(count);
+		 //remove
+//		 collection.findAndRemove({}, [['_id', -1]],cb); 
+//		 collection.count(cb);
+		 
+		 
+		 
+		 //update
+		 collection.findAndModify({"flag": 1},[["_id",1]],{$set:{"flag":0}},{},cb);
+		 
 	 }
  ],
  function (err, results) { });

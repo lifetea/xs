@@ -8,7 +8,7 @@ var catrule = new schedule.RecurrenceRule();
 
 //var hours = [15,16];
 //var minutes = [11,16,20,54];
-catrule.minutes = [10,15,20,25,30,35,40,45,50];
+catrule.minutes = [10,20,30,40,50];
 //rule.hour = hours;
 //rule.minute =minutes;
 var c=0;

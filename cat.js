@@ -25,7 +25,6 @@ var update =function(){
          function(temp,cb){
 			 template = temp.toString();
 			 count = $("#container a",template).length;
-			 console.log(count);
 			 request(config.href, cb);
          },
 		 function(response,body,cb){
@@ -43,6 +42,14 @@ var update =function(){
 		         for (var i = count,len=links.length; i < len; i++) {
 		         	var attr = links[i]["attribs"];
 		         	var filename = (url.parse(attr.href).pathname).slice(1,-1);
+		         	var prename = -1,nextname = 0;
+		         	if(i >0){
+		         		prename = (url.parse(links[i-1]["attribs"].href).pathname).slice(1,-1);
+		         	}
+		         	if(i+1 <len){
+		         		nextname = (url.parse(links[i+1]["attribs"].href).pathname).slice(1,-1);
+		         	}
+		         	
 		         	var href=attr.href;
 		         	var rel ="./wanmei/";
 			        var tmp = { 
@@ -50,11 +57,19 @@ var update =function(){
 		            		   "href" :href,
 		            		   "filename" : filename,
 		            		   "rel" : rel,
-		            		   "flag" :0
+		            		   "flag" :0,
+		            		   "pre":prename,
+		            		   "next":nextname
 		         	 };
 			        eles.push(tmp);
 		         }
-		         collect.insert(eles,{safe:true},cb); 
+		         collect.insert(eles,{safe:true},function(err, result){
+					 if(count > 0){
+						 db.collection("wanmei").findAndModify({"next": 0},[["_id",1]],{$set:{"next":eles[0]["next"]}},{},cb); 
+					 }else{
+						 cb(err);
+					 }
+		         }); 
 		         console.log("complete insert");
 			 }
 		 },
@@ -66,14 +81,14 @@ var update =function(){
 	            chunks.push(content);
 	        }
 	        var html = $("#container",template).append(chunks.join(""));
+	        console.log("complete write");
 	        fs.writeFile('./wanmei/index.htm', html,cb);
-	    },
-	    function(cb){
-	    	console.log("update");
-	    	db.close();
 	    }
 	 ],
-	 function (err, results) { });
+	 function (err, results) { 
+
+		db.close();
+	});
 }
 
 

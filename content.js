@@ -37,21 +37,13 @@ var run =function(){
 	    },
 	    function(cb){
 	    	collect.findAndModify({"flag": 0},[["_id",1]],{$set:{"flag":1}},{},cb);
-	    },
-	    function(cb){
 	    	console.log("update");
-	    	db.close();
 	    }
 	],
 	function (err, results) {
+		db.close();
 		console.log("finish");
-	    // results is now equal to: {one: 1, two: 2}
 	});
 }
-
-
-
-
-
 
 exports.run = run;

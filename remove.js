@@ -15,7 +15,7 @@ async.waterfall([
 	 },
 	 function(collection,cb){
 		 //remove
-//		 collection.findAndRemove({}, [['_id', -1]],cb); 
+		 collection.findAndRemove({}, [['_id', -1]],cb); 
 //		 collection.count(cb(null,collection));
 		 
 //		 collection.insert({"next":0},cb);
@@ -23,7 +23,7 @@ async.waterfall([
 		 //update
 //		 collection.findAndModify({"flag": 1},[["_id",1]],{$set:{"flag":0}},{},cb);
 		 
-		 collection.findAndModify({"next": "3579.htm"},[["_id",1]],{$set:{"next":0}},{},cb);
+//		 collection.findAndModify({"next": "3579.htm"},[["_id",1]],{$set:{"next":0}},{},cb);
 		 console.log("finish");
 		 
 	 },

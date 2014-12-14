@@ -38,6 +38,7 @@ var update =function(){
 		 },
 		 function(collection,cb){
 			 collect = collection;
+			 console.log(links.length,count);
 			 if(links.length > count){
 		         for (var i = count,len=links.length; i < len; i++) {
 		         	var attr = links[i]["attribs"];
@@ -63,9 +64,12 @@ var update =function(){
 		         	 };
 			        eles.push(tmp);
 		         }
+		         console.log(eles[0]["filename"]);
 		         collect.insert(eles,{safe:true},function(err, result){
+		        	 console.log("1");
 					 if(count > 0){
-						 db.collection("wanmei").findAndModify({"next": 0},[["_id",1]],{$set:{"next":eles[0]["next"]}},{},cb); 
+						 console.log("2");
+						 db.collection("wanmei").findAndModify({"next": 0},[["_id",1]],{$set:{"next":eles[0]["filename"]}},{},cb); 
 					 }else{
 						 cb(err);
 					 }

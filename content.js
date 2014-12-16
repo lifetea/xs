@@ -33,6 +33,8 @@ var run =function(){
 	    		 $ = cheerio.load(body);
 	     		html = $.html("#content .entry p");
 	     		fs.writeFile(filepath, html,cb);
+	    	}else{
+	    		cb(true);
 	    	}
 	    },
 	    function(cb){

@@ -15,23 +15,29 @@ async.waterfall([
 	 },
 	 function(collection,cb){
 		 //remove
-		 collection.findAndRemove({}, [['_id', -1]],cb); 
-//		 collection.count(cb(null,collection));
-		 
+//		 collection.findAndRemove({}, [['_id', -1]],cb); 
+		 collect =collection;
+		 collection.count(cb);
 //		 collection.insert({"next":0},cb);
+		 
+		// db.wanmei.ensureIndex({"href": 1}, {unique: true});
 		 
 		 //update
 //		 collection.findAndModify({"flag": 1},[["_id",1]],{$set:{"flag":0}},{},cb);
 		 
-//		 collection.findAndModify({"next": "3579.htm"},[["_id",1]],{$set:{"next":0}},{},cb);
-		 console.log("finish");
+		// collection.findAndModify({"next": "3577.htm"},[["_id",1]],{$set:{"next":0}},{},cb);
+		 
 		 
 	 },
-	 function(collection,cb){
+	 function(count,cb){
+		  collect.count(cb);
 //		 collection.count(cb);
+		  console.log("2");
 	 }
  ],
- function (err, results) { });
+ function (err, results) {
+	console.log("finish");
+});
 
 
 

@@ -50,7 +50,6 @@ var update =function(){
 		         	if(i+1 <len){
 		         		nextname = (url.parse(links[i+1]["attribs"].href).pathname).slice(1,-1);
 		         	}
-		         	
 		         	var href=attr.href;
 		         	var rel ="./wanmei/";
 			        var tmp = { 
@@ -75,12 +74,13 @@ var update =function(){
 					 }
 		         }); 
 		         console.log("complete insert");
+			 }else{
+				 cb(true);
 			 }
 		 },
 	    function(cb){
-	        var len = eles.length;
 	        var chunks = [];
-	        for(var i = 0;i<len;i++){
+	        for(var i = 0,len =eles.length; i<len;i++){
 	            var content = "<a href='"+ eles[i].filename +"'>"+eles[i].title+"</a>";
 	            chunks.push(content);
 	        }
@@ -90,10 +90,9 @@ var update =function(){
 	    }
 	 ],
 	 function (err, results) { 
-
 		db.close();
+		console.log("close");
 	});
 }
-
 
 exports.update = update;

@@ -1,7 +1,7 @@
 var cat = require("./cat");
 var content = require("./content");
-cat.update();
-//content.run();
+//cat.update();
+content.run();
 
 
 //var url = require("url");

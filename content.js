@@ -1,11 +1,11 @@
 var request = require('request');
 var fs = require('fs');
-var cheerio      = require("cheerio");
+$      = require("cheerio");
 var async = require("async");
 var  mongodb = require('mongodb');
 var  server  = new mongodb.Server('localhost', 27017, {auto_reconnect:true});
 var  db      = new mongodb.Db('xs', server, {safe:true});
-var template = "",filepath = "",collect=null; 
+var template = "",filepath = "",collect=null,ob={}; 
 
 var run =function(){
 	async.waterfall([
@@ -24,15 +24,19 @@ var run =function(){
 	        collection.find({"flag":0}).sort({"_id":1}).toArray(cb);
 	    },
 	    function(docs,cb){
-	        var ob = docs[0];
+	        ob = docs[0];
 	        filepath = ""+ob.rel+ob.filename;
 	        request(ob.href, cb);
 	    },
 	    function(response,body,cb){
 	    	if(response.statusCode == 200){
-	    		 $ = cheerio.load(body);
-	     		html = $.html("#content .entry p");
-	     		fs.writeFile(filepath, html,cb);
+	     		var content = $.load(body).html("#content .entry p");
+	     		var html = $.load(template)
+	     		html("#container").append(content);
+//	     		console.log(html.html());
+	     		html("#pre").append("<a href='"+ob.pre+"'>上一章</a>");
+	     		html("#next").append("<a href='"+ob.next+"'>下一章</a>");
+	     		fs.writeFile(filepath, html.html(),cb);
 	    	}else{
 	    		cb(true);
 	    	}

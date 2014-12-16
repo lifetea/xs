@@ -81,12 +81,13 @@ var update =function(){
 	    function(cb){
 	        var chunks = [];
 	        for(var i = 0,len =eles.length; i<len;i++){
-	            var content = "<a href='"+ eles[i].filename +"'>"+eles[i].title+"</a>";
+	            var content = "<li><a href='"+ eles[i].filename +"'>"+eles[i].title+"</a></li>";
 	            chunks.push(content);
 	        }
-	        var html = $("#container",template).append(chunks.join(""));
+	        var html = $.load(template);
+	        html("#container").append(chunks.join(""));
 	        console.log("complete write");
-	        fs.writeFile('./wanmei/index.htm', html,cb);
+	        fs.writeFile('./wanmei/index.htm', html.html(),cb);
 	    }
 	 ],
 	 function (err, results) { 

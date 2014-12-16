@@ -1,0 +1,40 @@
+ul,li,h1,h2,h3,h4,p,div{margin: 0;padding:0;}
+body {
+background: #fbf7f0 url(img/topbg_read.jpg) repeat-x;
+color: #000;
+font: 14px/1.65 "Microsoft Yahei",Tahoma,Arial,SimSun,"Hiragino Sans GB",PMingLiu,Verdana,sans-serif;
+}
+a{
+	color: #004267;
+	text-decoration: none;
+}
+a:hover {
+color: #ff7f24;
+}
+.header{
+	padding: 1.5em 0;
+}
+.header h1{
+	text-align: center;
+}
+#container{
+	width:940px;
+	margin: 0 auto;
+	list-style-type: none;
+}
+#container li{
+	float:left;
+	width:33%;
+	list-style: none;
+	float: left;
+	padding: 5px 0 0;
+	margin: 0;
+	height: 30px;
+	text-overflow: ellipsis;
+	border-bottom: 1px dashed #ddd;
+}
+#container a{
+	font-size:100%;
+	line-height: 2em;
+	text-overflow: ellipsis;
+}

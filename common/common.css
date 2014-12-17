@@ -1,21 +1,44 @@
-ul,li,h1,h2,h3,h4,p,div{margin: 0;padding:0;}
+ul,li,h1,h2,h3,h4,p,div,i,dl,dt,dd,img{margin: 0;padding:0;font-size: 100%;font-style: normal;border: 0;}
+.clearfix:after{content:".";display:block;height:0;clear:both;visibility:hidden}
+.clearfix{*+height:1%;}
 body {
-background: #fbf7f0 url(img/topbg_read.jpg) repeat-x;
-color: #000;
-font: 14px/1.65 "Microsoft Yahei",Tahoma,Arial,SimSun,"Hiragino Sans GB",PMingLiu,Verdana,sans-serif;
+	background: #fbf7f0;
+	color: #000;
+	font: 14px/1.65 "Microsoft Yahei",Tahoma,Arial,SimSun,"Hiragino Sans GB",PMingLiu,Verdana,sans-serif;
 }
 a{
 	color: #004267;
 	text-decoration: none;
 }
 a:hover {
-color: #ff7f24;
+	color: #ff7f24;
 }
 .header{
-	padding: 1.5em 0;
+	padding: 2em 0;
 }
 .header h1{
 	text-align: center;
+	font-size:250%;
+}
+.header .detail{
+	width:940px;
+	margin: 1em auto;
+}
+.header .info , .header .pic{
+	float:left;
+}
+.header .info{
+	padding-left:40px;
+	width: 700px;
+	font-size:120%;
+}
+
+.header .info i{
+	color: #999;
+}
+.header dd{
+	width:670px;
+	line-height:190%;
 }
 #container{
 	width:940px;

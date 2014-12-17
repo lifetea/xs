@@ -87,7 +87,7 @@ var update =function(){
 	        var html = $.load(template);
 	        html("#container").append(chunks.join(""));
 	        console.log("complete write");
-	        fs.writeFile('./wanmei/index.htm', html.html(),cb);
+	        fs.writeFile('./wanmei/index.htm', html.html(),{encoding:"utf8"},cb);
 	    }
 	 ],
 	 function (err, results) { 

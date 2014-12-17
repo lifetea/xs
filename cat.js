@@ -2,22 +2,21 @@ var config = require("./config.json");
 var http 	 = require("http");
 var request = require('request');
 var url      = require("url");
-var fs       = require("fs");
+var fs       = require('fs');
 var async    = require("async");
 $ 		 = require("cheerio");
-var iconv = require('iconv-lite'); 
-var  mongodb = require("mongodb");
-var  server  = new mongodb.Server("localhost", 27017, {auto_reconnect:true});
-var  db 	 = new mongodb.Db("xs", server, {safe:true});
+var  mongodb = require('mongodb');
+var  server  = new mongodb.Server('localhost', 27017, {auto_reconnect:true});
+var  db 	 = new mongodb.Db('xs', server, {safe:true});
 var links ="",collect=null,count=0;
 var template = "",eles =[]; 
 
 var update =function(){
 	async.waterfall([
 		 function(cb){
-			fs.exists("./wanmei/index.htm", function (exists) {
-				var filepath =  !!exists ? "./wanmei/index.htm" : "./tp/cat.htm";
-				fs.readFile(filepath,cb);
+			fs.exists('./wanmei/index.htm', function (exists) {
+			  var filepath = !!exists ? './wanmei/index.htm' : './tp/cat.htm';
+			  fs.readFile(filepath,cb);
 			});
 		 },
          function(temp,cb){
@@ -27,12 +26,8 @@ var update =function(){
          },
 		 function(response,body,cb){
 		  	if(response.statusCode == 200){
-		  		var str = iconv.decode(body, 'utf-8');  
-		   		links = $("a",$(".cat_post",str)[0]);
-//		   		fs.writeFile('./wanmei/index.htm', str,{encoding:"utf8"},function(err,result){
-//		   			cb(true);
-//		   		});
-		   		//db.open(cb);
+		   		links = $("a",$(".cat_post",body)[0]);
+		   		db.open(cb);
 		  	}else{
 		  		cb(true);
 		  	}
@@ -56,7 +51,15 @@ var update =function(){
 		         	}
 		         	var href=attr.href;
 		         	var rel ="./wanmei/";
-			        var tmp = { "title":attr.title,"href" :href, "filename" : filename,"rel" : rel, "flag" :0,"pre":prename,"next":nextname};
+			        var tmp = { 
+		        			   "title":attr.title,
+		            		   "href" :href,
+		            		   "filename" : filename,
+		            		   "rel" : rel,
+		            		   "flag" :0,
+		            		   "pre":prename,
+		            		   "next":nextname
+		         	 };
 			        eles.push(tmp);
 		         }
 		         console.log(eles[0]["filename"]);

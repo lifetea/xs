@@ -28,7 +28,7 @@ a:hover {
 	float:left;
 }
 .header .pic{
-	margin-top:10px;
+	padding-top:8px;
 }
 .header .info{
 	padding-left:40px;
@@ -39,25 +39,29 @@ a:hover {
 .header .info i{
 	color: #999;
 }
-.header .share_label{
-	float:left;
-}
 .header dd{
 	width:670px;
-	line-height:205%;
+	line-height:202%;
 }
 .jiathis_style_24x24{
-	float:left;
 	padding-top:6px;
 }
-#container{
+.wrap{
 	width:940px;
-	margin: 0 auto;
+	margin:0 auto;
+}
+#container{
+	width:660px;
 	list-style-type: none;
+	float:left;
+}
+#uyan_frame{
+	float:left;
+	width:280px;
 }
 #container li{
 	float:left;
-	width:33%;
+	width:48%;
 	list-style: none;
 	float: left;
 	padding: 5px 0 0;
@@ -67,7 +71,7 @@ a:hover {
 	border-bottom: 1px dashed #ddd;
 }
 #container a{
-	font-size:100%;
+	font-size:110%;
 	line-height: 2em;
 	text-overflow: ellipsis;
 }

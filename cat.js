@@ -15,11 +15,8 @@ var update =function(){
 	async.waterfall([
 		 function(cb){
 			fs.exists('./wanmei/index.htm', function (exists) {
-			  if(!!exists){
-				fs.readFile('./wanmei/index.htm',cb);
-			  }else{
-				fs.readFile('./tp/cat.htm',cb);
-			  }
+			  var filepath = !!exists ? './wanmei/index.htm' : './tp/cat.htm';
+			  fs.readFile(filepath,cb);
 			});
 		 },
          function(temp,cb){
@@ -31,6 +28,8 @@ var update =function(){
 		  	if(response.statusCode == 200){
 		   		links = $("a",$(".cat_post",body)[0]);
 		   		db.open(cb);
+		  	}else{
+		  		cb(true);
 		  	}
 		  },
 		 function(db,cb){

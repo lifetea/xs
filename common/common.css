@@ -27,6 +27,9 @@ a:hover {
 .header .info , .header .pic{
 	float:left;
 }
+.header .pic{
+	margin-top:10px;
+}
 .header .info{
 	padding-left:40px;
 	width: 700px;
@@ -36,9 +39,16 @@ a:hover {
 .header .info i{
 	color: #999;
 }
+.header .share_label{
+	float:left;
+}
 .header dd{
 	width:670px;
-	line-height:190%;
+	line-height:205%;
+}
+.jiathis_style_24x24{
+	float:left;
+	padding-top:6px;
 }
 #container{
 	width:940px;

@@ -16,7 +16,7 @@ a:hover {
 .header{
 	padding: 2em 0;
 }
-.header h1{
+.header .book-name{
 	text-align: center;
 	font-size:250%;
 }
@@ -51,11 +51,13 @@ a:hover {
 	margin:0 auto;
 }
 #container{
-	width:620px;
 	list-style-type: none;
-	float:left;
 }
-#uyan_frame{
+.ltside{
+	float:left;
+	width:640px;
+}
+.rtside{
 	float:left;
 	width:300px;
 }
@@ -74,4 +76,19 @@ a:hover {
 	font-size:110%;
 	line-height: 2em;
 	text-overflow: ellipsis;
+}
+#content{
+	padding-right:1em;
+}
+#content .capt-title{
+	text-align: center;
+	font-size:180%;
+	padding-bottom:1em;
+	color:#D7491F;
+}
+#content p{
+	font-size:120%;
+	line-height: 200%;
+	text-indent: 2em;
+	text-align: left;
 }

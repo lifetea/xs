@@ -10,6 +10,7 @@ var template = "",filepath = "",collect=null,ob={};
 var run =function(){
 	async.waterfall([
 	    function(cb){
+	    	db.close();
 	        fs.readFile('./tp/content.htm',cb);
 	    },
 	    function(temp,cb){
@@ -32,7 +33,8 @@ var run =function(){
 	    	if(response.statusCode == 200){
 	     		var content = $.load(body).html("#content .entry p");
 	     		var html = $.load(template)
-	     		html("#container").append(content);
+	     		html("#content").append("<h1 class='capt-title'>"+ob.title+"</h1>");
+	     		html("#content").append(content);
 //	     		console.log(html.html());
 	     		html("#pre").append("<a href='"+ob.pre+"'>上一章</a>");
 	     		html("#next").append("<a href='"+ob.next+"'>下一章</a>");

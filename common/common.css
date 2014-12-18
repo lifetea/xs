@@ -28,11 +28,11 @@ a:hover {
 	float:left;
 }
 .header .pic{
-	padding-top:8px;
+	padding-top:14px;
 }
 .header .info{
 	padding-left:40px;
-	width: 700px;
+	width: 780px;
 	font-size:120%;
 }
 
@@ -40,24 +40,24 @@ a:hover {
 	color: #999;
 }
 .header dd{
-	width:670px;
-	line-height:202%;
+	width:760px;
+	line-height:270%;
 }
 .jiathis_style_24x24{
-	padding-top:6px;
+	padding-top:10px;
 }
 .wrap{
 	width:940px;
 	margin:0 auto;
 }
 #container{
-	width:660px;
+	width:620px;
 	list-style-type: none;
 	float:left;
 }
 #uyan_frame{
 	float:left;
-	width:280px;
+	width:300px;
 }
 #container li{
 	float:left;

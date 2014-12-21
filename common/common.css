@@ -28,23 +28,35 @@ a:hover {
 	float:left;
 }
 .header .pic{
-	padding-top:14px;
+	padding-top:8px;
 }
 .header .info{
 	padding-left:40px;
 	width: 780px;
-	font-size:120%;
+	font-size:105%;
 }
 
 .header .info i{
 	color: #999;
 }
+#readding .btn-text{
+	background-color: #bf697f;
+	display: inline-block;
+	padding: 4px 14px;
+	margin: 8px 10px 0 0;
+	color: #fff;
+	background-image: none;
+	border-radius: 1px;
+	-webkit-border-radius: 1px;
+	-moz-border-radius: 1px;
+	line-height: 120%;
+}
 .header dd{
 	width:760px;
-	line-height:270%;
+	line-height:215%;
 }
 .jiathis_style_24x24{
-	padding-top:10px;
+	padding-top:2px;
 }
 .hd,.new{
 	border-bottom: 2px solid #e5a9b7;
@@ -115,7 +127,7 @@ a:hover {
 	text-align: left;
 }
 .footer{
-	height:120px;
+	height:100px;
 }
 #cnzz_stat_icon_1253889814{
 	display:none;

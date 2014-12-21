@@ -38,6 +38,8 @@ var run =function(){
 //	     		console.log(html.html());
 	     		html("#pre").append("<a href='"+ob.pre+"'>上一章</a>");
 	     		html("#next").append("<a href='"+ob.next+"'>下一章</a>");
+	     		html("#current").attr("href",ob.filename);
+	     		html("#current").attr("title",ob.title);
 	     		fs.writeFile(filepath, html.html(),cb);
 	    	}else{
 	    		cb(true);

@@ -39,7 +39,7 @@ a:hover {
 .header .info i{
 	color: #999;
 }
-#readding .btn-text{
+.btn-text{
 	background-color: #bf697f;
 	display: inline-block;
 	padding: 4px 14px;
@@ -125,6 +125,13 @@ a:hover {
 	line-height: 200%;
 	text-indent: 2em;
 	text-align: left;
+}
+#page{
+	width:340px;
+	margin:2.5em auto;
+}
+#page a{
+	margin:0 1em;
 }
 .footer{
 	height:100px;

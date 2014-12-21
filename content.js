@@ -36,8 +36,9 @@ var run =function(){
 	     		html("#content").append("<h1 class='capt-title'>"+ob.title+"</h1>");
 	     		html("#content").append(content);
 //	     		console.log(html.html());
-	     		html("#pre").append("<a href='"+ob.pre+"'>上一章</a>");
-	     		html("#next").append("<a href='"+ob.next+"'>下一章</a>");
+	     		html("#page").append("<a class='btn-text' href='"+ob.pre+"'>上一章</a>");
+	     		html("#page").append("<a class='btn-text' href='index.htm'>目录</a>");
+	     		html("#page").append("<a class='btn-text' href='"+ob.next+"'>下一章</a>");
 	     		html("#current").attr("href",ob.filename);
 	     		html("#current").attr("title",ob.title);
 	     		fs.writeFile(filepath, html.html(),cb);

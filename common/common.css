@@ -1,10 +1,10 @@
-ul,li,h1,h2,h3,h4,p,div,i,dl,dt,dd,img{margin: 0;padding:0;font-size: 100%;font-style: normal;border: 0;}
+ul,li,h1,h2,h3,h4,p,div,i,dl,dt,dd,img,body{margin: 0;padding:0;font-size: 100%;font-style: normal;border: 0;}
 .clearfix:after{content:".";display:block;height:0;clear:both;visibility:hidden}
 .clearfix{*+height:1%;}
 body {
-	background: #fbf7f0;
+	background: #fcfcfc;
 	color: #000;
-	font: 14px/1.65 "Microsoft Yahei",Tahoma,Arial,SimSun,"Hiragino Sans GB",PMingLiu,Verdana,sans-serif;
+	font: 14px/1.65 rial, SimSun, georgia, verdana, helvetica, sans-serif;
 }
 a{
 	color: #004267;
@@ -46,11 +46,33 @@ a:hover {
 .jiathis_style_24x24{
 	padding-top:10px;
 }
+.hd,.new{
+	border-bottom: 2px solid #e5a9b7;
+	height: 30px;
+	margin: 0;
+
+}
+.hd h2{
+	overflow: hidden;
+	width: 145px;
+	text-indent: -200%;
+	background: url(../images/capt.png) no-repeat;
+}
+.new h2{
+	overflow: hidden;
+	width: 145px;
+	text-indent: -200%;
+	height: 40px;
+	background: url(../images/news.png) no-repeat;	
+}
 .wrap{
 	width:940px;
 	margin:0 auto;
 }
-#container{
+#news{
+	height: 80px;
+}
+#container,#news{
 	list-style-type: none;
 }
 .ltside{
@@ -61,7 +83,7 @@ a:hover {
 	float:left;
 	width:300px;
 }
-#container li{
+#container li,#news li{
 	float:left;
 	width:48%;
 	list-style: none;
@@ -72,7 +94,7 @@ a:hover {
 	text-overflow: ellipsis;
 	border-bottom: 1px dashed #ddd;
 }
-#container a{
+#container a,#news a{
 	font-size:110%;
 	line-height: 2em;
 	text-overflow: ellipsis;
@@ -91,4 +113,10 @@ a:hover {
 	line-height: 200%;
 	text-indent: 2em;
 	text-align: left;
+}
+.footer{
+	height:120px;
+}
+#cnzz_stat_icon_1253889814{
+	display:none;
 }

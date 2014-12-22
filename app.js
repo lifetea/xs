@@ -13,7 +13,7 @@ catrule.minutes = [10,15,20,25,30,35,40,,45,50,55];
 //rule.minute =minutes;
 var c=0;
 var j = schedule.scheduleJob(catrule, function(){
-	content.run();
+	// content.run();
 });
 
 var conrule = new schedule.RecurrenceRule();
@@ -21,5 +21,5 @@ var seconds = [10,40];
 catrule.minutes = seconds;
 
 var k = schedule.scheduleJob(conrule, function(){
-	console.log("1");
+	console.log("2");
 });

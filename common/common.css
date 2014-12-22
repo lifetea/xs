@@ -121,10 +121,14 @@ a:hover {
 	color:#D7491F;
 }
 #content p{
-	font-size:120%;
-	line-height: 200%;
-	text-indent: 2em;
+	font-size: 130%;
 	text-align: left;
+	text-indent: 2em;
+	margin-bottom: 1em;
+	color: rgb(45, 45, 45);
+	line-height: 190%;
+	word-wrap: break-word;
+	word-break: break-all;
 }
 #page{
 	width:340px;

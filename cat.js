@@ -1,4 +1,4 @@
-var config = require("./config.json");
+var conf = require("./conf/wanmei.json");
 var request = require('request');
 var url      = require("url");
 var fs       = require('fs');
@@ -6,9 +6,10 @@ var async    = require("async");
 $ 		 = require("cheerio");
 var  mongodb = require('mongodb');
 var  server  = new mongodb.Server('localhost', 27017, {auto_reconnect:true});
-var  db 	 = new mongodb.Db('xs', server, {safe:true});
+var  db 	 = new mongodb.Db(conf.db, server, {safe:true});
 var links ="",collect=null,count=0;
 var template = "",eles =[],news=[]; 
+
 var getfn = function(u){
 	return (url.parse(u["attribs"].href).pathname).slice(1,-1);
 };
@@ -16,33 +17,35 @@ var getfn = function(u){
 var update =function(){
 	async.waterfall([
 		 function(cb){
-//			db.close();
-			fs.exists('./wanmei/index.htm', function (exists) {
-			  var filepath = !!exists ? './wanmei/index.htm' : './tp/cat.htm';
+			db.close();
+			fs.exists(conf.index, function (exists) {
+			  var filepath = !!exists ? conf.index : conf.tp;
 			  fs.readFile(filepath,cb);
 			});
 		 },
          function(temp,cb){
-			 console.log("444");
+			 console.log("start request");
 			 template = temp.toString();
 			 count = $("#container a",template).length;
-			 request(config.href, cb);
+			 request({url:conf.href,timeout:20000}, function (error, response, body){
+				  if (!error && response.statusCode == 200) {
+				    cb(null,body)
+				  }else{
+					  cb(true);
+				  }
+				});
          },
-		 function(response,body,cb){
-		  	if(response.statusCode == 200){
+		 function(body,cb){
 		  		console.log("status 200");
-		   		links = $("a",$(".cat_post",body)[0]);
 		   		db.open(cb);
-		  	}else{
-		  		cb(true);
-		  	}
+		   		links = $("a",$(".cat_post",body)[0]);
 		  },
 		 function(db,cb){
-		     db.collection('wanmei',{safe:true}, cb);
+		     db.collection(conf.collect,{safe:true}, cb);
 		 },
 		 function(collection,cb){
 			 collect = collection;
-			 console.log(links.length,count);
+			 console.log("links:",links.length,"count:",count);
 			 if(links.length > count){
 		         for (var i = count,len=links.length; i < len; i++) {
 		         	var attr = links[i]["attribs"];
@@ -55,12 +58,11 @@ var update =function(){
 		         		nextname = (url.parse(links[i+1]["attribs"].href).pathname).slice(1,-1);
 		         	}
 		         	var href=attr.href;
-		         	var rel ="./wanmei/";
 			        var tmp = { 
 		        			   "title":attr.title,
 		            		   "href" :href,
 		            		   "filename" : filename,
-		            		   "rel" : rel,
+		            		   "rel" : conf.rel,
 		            		   "flag" :0,
 		            		   "pre":prename,
 		            		   "next":nextname
@@ -72,9 +74,9 @@ var update =function(){
 		        	 console.log("1");
 					 if(count > 0){
 						 console.log("2");
-						 db.collection("wanmei").findAndModify({"next": 0},[["_id",1]],{$set:{"next":eles[0]["filename"]}},{},cb); 
+						 db.collection(conf.collect).findAndModify({"next": 0},[["_id",1]],{$set:{"next":eles[0]["filename"]}},{},cb); 
 					 }else{
-						 cb(err);
+						 cb(null);
 					 }
 		         }); 
 		         console.log("complete insert");
@@ -97,7 +99,7 @@ var update =function(){
 	        html("#container").append(chunks.join(""));
 	        html("#news").html(newstr);
 	        console.log("complete write");
-	        fs.writeFile('./wanmei/index.htm', html.html(),{encoding:"utf8"},cb);
+	        fs.writeFile(conf.index, html.html(),{encoding:"utf8"},cb(true));
 	    }
 	 ],
 	 function (err, results) { 

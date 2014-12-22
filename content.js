@@ -1,24 +1,26 @@
+var conf = require("./conf/wanmei.json");
 var request = require('request');
 var fs = require('fs');
 $      = require("cheerio");
 var async = require("async");
 var  mongodb = require('mongodb');
 var  server  = new mongodb.Server('localhost', 27017, {auto_reconnect:true});
-var  db      = new mongodb.Db('xs', server, {safe:true});
+var  db      = new mongodb.Db(conf.db, server, {safe:true});
 var template = "",filepath = "",collect=null,ob={}; 
 
 var run =function(){
 	async.waterfall([
 	    function(cb){
 	    	db.close();
-	        fs.readFile('./tp/content.htm',cb);
+	        fs.readFile(conf.cont,cb);
 	    },
 	    function(temp,cb){
 	        template = temp.toString();
 	        db.open(cb);
 	    },
 	    function(db,cb){
-	        db.collection('wanmei',{safe:true}, cb);
+	    	console.log("11");
+	        db.collection(conf.collect,{safe:true}, cb);
 	    },
 	    function(collection,cb){
 	    	collect = collection;
@@ -27,7 +29,8 @@ var run =function(){
 	    function(docs,cb){
 	        ob = docs[0];
 	        filepath = ""+ob.rel+ob.filename;
-	        request(ob.href, cb);
+	        
+	        request({url:ob.href,timeout:20000}, cb);
 	    },
 	    function(response,body,cb){
 	    	if(response.statusCode == 200){
@@ -35,7 +38,6 @@ var run =function(){
 	     		var html = $.load(template)
 	     		html("#content").append("<h1 class='capt-title'>"+ob.title+"</h1>");
 	     		html("#content").append(content);
-//	     		console.log(html.html());
 	     		html("#page").append("<a class='btn-text' href='"+ob.pre+"'>上一章</a>");
 	     		html("#page").append("<a class='btn-text' href='index.htm'>目录</a>");
 	     		html("#page").append("<a class='btn-text' href='"+ob.next+"'>下一章</a>");

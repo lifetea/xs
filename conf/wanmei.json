@@ -1,0 +1,9 @@
+{
+ "href": "http://www.wanmeishijiexiaoshuo.com/",
+ "rel": "./novel/wanmei/",
+ "db":"xs",
+ "collect":"wanmei",
+ "index":"./novel/wanmei/index.htm",
+  "tp":"./tp/capt/wanmei.htm",
+  "cont":"./tp/cont/wanmei.htm"
+}

@@ -6,14 +6,13 @@ var catrule = new schedule.RecurrenceRule();
 
 
 
-//var hours = [15,16];
 //var minutes = [11,16,20,54];
-catrule.minutes = [10,15,20,25,30,35,40,,45,50,55];
+catrule.minutes = [10,30,50];
 //rule.hour = hours;
 //rule.minute =minutes;
 var c=0;
 var j = schedule.scheduleJob(catrule, function(){
-	// content.run();
+	content.run();
 });
 
 var conrule = new schedule.RecurrenceRule();

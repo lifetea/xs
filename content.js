@@ -4,7 +4,7 @@ var fs = require('fs');
 $      = require("cheerio");
 var async = require("async");
 var  mongodb = require('mongodb');
-var  server  = new mongodb.Server('localhost', 27017, {auto_reconnect:true});
+var  server  = new mongodb.Server('106.185.55.107', 27017, {auto_reconnect:true});
 var  db      = new mongodb.Db(conf.db, server, {safe:true});
 var template = "",filepath = "",collect=null,ob={}; 
 

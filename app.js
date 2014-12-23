@@ -12,8 +12,8 @@ var j = schedule.scheduleJob(catrule, function(){
 });
 
 var contrule = new schedule.RecurrenceRule();
-var minutes = [0,30];
-catrule.minutes = minutes;
+var minutes = [0,10,20,30,40,50];
+contrule.minutes = minutes;
 
 var k = schedule.scheduleJob(contrule, function(){
 	content.run();

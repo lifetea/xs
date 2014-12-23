@@ -99,7 +99,7 @@ var update =function(){
 	        html("#container").append(chunks.join(""));
 	        html("#news").html(newstr);
 	        console.log("complete write");
-	        fs.writeFile(conf.index, html.html(),{encoding:"utf8"},cb(true));
+	        fs.writeFile(conf.index, html.html(),{encoding:"utf8"},cb);
 	    }
 	 ],
 	 function (err, results) { 

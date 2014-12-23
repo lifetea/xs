@@ -3,22 +3,18 @@ var content = require("./content");
 var schedule = require('node-schedule');
 var catrule = new schedule.RecurrenceRule();
 
+catrule.minutes = [15,45];
+catrule.hour = [0,6,22,23];
 
-
-
-//var minutes = [11,16,20,54];
-catrule.minutes = [10,30,50];
-//rule.hour = hours;
-//rule.minute =minutes;
 var c=0;
 var j = schedule.scheduleJob(catrule, function(){
-	content.run();
+	cat.update();
 });
 
-var conrule = new schedule.RecurrenceRule();
-var seconds = [10,40];
-catrule.minutes = seconds;
+var contrule = new schedule.RecurrenceRule();
+var minutes = [0,30];
+catrule.minutes = minutes;
 
-var k = schedule.scheduleJob(conrule, function(){
-	console.log("2");
+var k = schedule.scheduleJob(contrule, function(){
+	content.run();
 });

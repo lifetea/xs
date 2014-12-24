@@ -33,7 +33,7 @@ var run =function(){
 	        ob = docs[0];
 	        filepath = ""+ob.rel+ob.filename;
 	        
-	        request({url:ob.href,timeout:20000}, cb);
+	        request({url:ob.href,timeout:40000}, cb);
 	    },
 	    function(response,body,cb){
 	    	if(response.statusCode == 200){
@@ -41,6 +41,8 @@ var run =function(){
 	     		var html = $.load(template)
 	     		html("#content").append("<h1 class='capt-title'>"+ob.title+"</h1>");
 	     		html("#content").append(content);
+	     		var  htitle = html("head title").text();
+	     		html("head title").text(ob.title+htitle);
 	     		html("#page").append("<a class='btn-text' href='"+ob.pre+"'>上一章</a>");
 	     		html("#page").append("<a class='btn-text' href='index.htm'>目录</a>");
 	     		html("#page").append("<a class='btn-text' href='"+ob.next+"'>下一章</a>");

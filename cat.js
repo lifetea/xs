@@ -27,7 +27,7 @@ var update =function(){
 			 console.log("start request",new Date().toUTCString());
 			 template = temp.toString();
 			 count = $("#container a",template).length;
-			 request({url:conf.href,timeout:20000}, function (error, response, body){
+			 request({url:conf.href,timeout:40000}, function (error, response, body){
 				  if (!error && response.statusCode == 200) {
 				    cb(null,body)
 				  }else{

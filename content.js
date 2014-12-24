@@ -19,7 +19,7 @@ var run =function(){
 	        db.open(cb);
 	    },
 	    function(db,cb){
-	    	console.log("11");
+	    	console.log("start",new Date().toUTCString());
 	        db.collection(conf.collect,{safe:true}, cb);
 	    },
 	    function(collection,cb){
@@ -27,6 +27,9 @@ var run =function(){
 	        collection.find({"flag":0}).sort({"_id":1}).toArray(cb);
 	    },
 	    function(docs,cb){
+	    	if(docs.length<1){
+	    		cb(true);
+	    	}
 	        ob = docs[0];
 	        filepath = ""+ob.rel+ob.filename;
 	        

@@ -27,7 +27,7 @@ var run =function(){
 	        collection.find({"flag":0}).sort({"_id":1}).toArray(cb);
 	    },
 	    function(docs,cb){
-	    	if(!!dob.rel){
+	    	if(!!ob&&!!ob.rel){
 	    		cb(true);
 	    	}else{
 	    		ob = docs[0];

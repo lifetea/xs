@@ -28,15 +28,23 @@ a:hover {
 	float:left;
 }
 .header .pic{
-	padding-top:8px;
+	padding-top:10px;
+}
+.header .pic img{
+	width:100px;
 }
 .header .info{
 	padding-left:40px;
 	width: 780px;
-	font-size:105%;
+	font-size:120%;
+}
+.intro {
+	clear:both;
+	padding-top:10px;
+	line-height: 180%;
 }
 
-.header .info i{
+.header .info i,.intro i{
 	color: #999;
 }
 .btn-text{
@@ -53,10 +61,14 @@ a:hover {
 }
 .header dd{
 	width:760px;
-	line-height:215%;
+	line-height:240%;
+	padding:0 0 10px;
+}
+#readding{
+	font-size:85%;
 }
 .jiathis_style_24x24{
-	padding-top:2px;
+	padding-top:8px;
 }
 .hd,.new{
 	border-bottom: 2px solid #e5a9b7;

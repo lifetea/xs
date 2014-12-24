@@ -27,12 +27,12 @@ var run =function(){
 	        collection.find({"flag":0}).sort({"_id":1}).toArray(cb);
 	    },
 	    function(docs,cb){
-	    	if(!!ob&&!!ob.rel){
-	    		cb(true);
-	    	}else{
-	    		ob = docs[0];
+	    	ob = docs[0];
+	    	if(!!ob&&!ob.rel){
 	    		filepath = ""+ob.rel+ob.filename;
 	    		request({url:ob.href,timeout:40000}, cb);
+	    	}else{
+	    		cb(true);
 	    	}
 	    },
 	    function(response,body,cb){

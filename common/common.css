@@ -138,8 +138,8 @@ a:hover {
 	margin:0 1em;
 }
 .footer{
-	height:100px;
-}
-#cnzz_stat_icon_1253889814{
-	display:none;
+	height:80px;
+	width:940px;
+	margin:0 auto;
+	padding-top:30px;
 }

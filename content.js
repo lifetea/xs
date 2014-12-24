@@ -27,13 +27,13 @@ var run =function(){
 	        collection.find({"flag":0}).sort({"_id":1}).toArray(cb);
 	    },
 	    function(docs,cb){
-	    	if(docs.length<1){
+	    	if(!!dob.rel){
 	    		cb(true);
+	    	}else{
+	    		ob = docs[0];
+	    		filepath = ""+ob.rel+ob.filename;
+	    		request({url:ob.href,timeout:40000}, cb);
 	    	}
-	        ob = docs[0];
-	        filepath = ""+ob.rel+ob.filename;
-	        
-	        request({url:ob.href,timeout:40000}, cb);
 	    },
 	    function(response,body,cb){
 	    	if(response.statusCode == 200){

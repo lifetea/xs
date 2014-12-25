@@ -27,10 +27,11 @@ var run =function(){
 	        collection.find({"flag":0}).sort({"_id":1}).toArray(cb);
 	    },
 	    function(docs,cb){
-	    	console.log("request");
+	    	
 	    	ob = docs[0];
-	    	if(!!ob&&!ob.rel){
+	    	if(!!ob && !!ob.rel){
 	    		filepath = ""+ob.rel+ob.filename;
+	    		console.log("request");
 	    		request({url:ob.href,timeout:40000}, cb);
 	    	}else{
 	    		cb(true);

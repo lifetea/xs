@@ -19,7 +19,7 @@ var run =function(){
 	        db.open(cb);
 	    },
 	    function(db,cb){
-	    	console.log("start",new Date().toUTCString());
+	    	console.log("start",new Date());
 	        db.collection(conf.collect,{safe:true}, cb);
 	    },
 	    function(collection,cb){

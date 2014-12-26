@@ -24,7 +24,7 @@ var update =function(){
 			});
 		 },
          function(temp,cb){
-			 console.log("request",new Date().toUTCString());
+			 console.log("request",new Date());
 			 template = temp.toString();
 			 count = $("#container a",template).length;
 			 request({url:conf.href,timeout:40000}, function (error, response, body){

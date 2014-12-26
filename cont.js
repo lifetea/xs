@@ -1,2 +1,2 @@
-var content = require("./content");
-content.run();
+var nov = require("./nov");
+nov.cont();

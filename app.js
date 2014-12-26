@@ -1,16 +1,15 @@
-var cat = require("./cat");
-var content = require("./content");
+var nov = require("./nov");
 var schedule = require('node-schedule');
 
 
-catrule.minute = 0;
-var catrule = new schedule.RecurrenceRule();
-var j = schedule.scheduleJob(catrule, function(){
-	cat.update();
+var capt = new schedule.RecurrenceRule();
+capt.minute = 0;
+var j = schedule.scheduleJob(capt, function(){
+	nov.cont();
 });
 
-var contrule = new schedule.RecurrenceRule();
-contrule.minute = 30;
-var k = schedule.scheduleJob(contrule, function(){
-	content.run();
+var cont = new schedule.RecurrenceRule();
+cont.minute = 30;
+var k = schedule.scheduleJob(cont, function(){
+	nov.cont();
 });

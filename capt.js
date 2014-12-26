@@ -1,2 +1,2 @@
-var cat = require("./cat");
-cat.update();
+var nov = require("./nov");
+nov.capt();

@@ -48,7 +48,7 @@ var capt =function(){
 			 collect = collection;
 			 console.log("links:",links.length,"count:",count);
 			 if(links.length > count){
-		         for (var i = count,len=links.length; i < len; i++) {
+		         for (var i = count==0 ? 0 : count-1 ,len=links.length; i < len; i++) {
 		         	var attr = links[i]["attribs"];
 		         	var filename = (url.parse(attr.href).pathname).slice(1,-1);
 		         	var prename = -1,nextname = 0;
@@ -63,8 +63,9 @@ var capt =function(){
 			        eles.push(tmp);
 		         }
 		         collect.insert(eles,{safe:true},function(err, result){
-					 if(!err && count > 0){
-						 console.log("complete insert");
+		        	 if(err) throw err;
+		        	 console.log("complete insert");
+		        	 if(count > 0){
 						 db.collection(conf.collect).findAndModify({"next": 0},[["_id",1]],{$set:{"next":eles[0]["filename"]}},{},cb); 
 					 }else{
 						 cb(null);

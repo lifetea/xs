@@ -24,7 +24,7 @@ var update =function(){
 			});
 		 },
          function(temp,cb){
-			 console.log("start request",new Date().toUTCString());
+			 console.log("request",new Date().toUTCString());
 			 template = temp.toString();
 			 count = $("#container a",template).length;
 			 request({url:conf.href,timeout:40000}, function (error, response, body){
@@ -52,34 +52,23 @@ var update =function(){
 		         	var filename = (url.parse(attr.href).pathname).slice(1,-1);
 		         	var prename = -1,nextname = 0;
 		         	if(i >0){
-		         		prename = (url.parse(links[i-1]["attribs"].href).pathname).slice(1,-1);
+		         		prename = getfn(links[i-1]);
 		         	}
 		         	if(i+1 <len){
-		         		nextname = (url.parse(links[i+1]["attribs"].href).pathname).slice(1,-1);
+		         		nextname =getfn(links[i+1]); 
 		         	}
 		         	var href=attr.href;
-			        var tmp = { 
-		        			   "title":attr.title,
-		            		   "href" :href,
-		            		   "filename" : filename,
-		            		   "rel" : conf.rel,
-		            		   "flag" :0,
-		            		   "pre":prename,
-		            		   "next":nextname
-		         	 };
+			        var tmp = {"title":attr.title,"href" :href,"filename" : filename,"rel" : conf.rel,"flag" :0,"pre":prename,"next":nextname};
 			        eles.push(tmp);
 		         }
-		         console.log(eles[0]["filename"]);
 		         collect.insert(eles,{safe:true},function(err, result){
-		        	 console.log("1");
-					 if(count > 0){
-						 console.log("2");
+					 if(!err && count > 0){
+						 console.log("complete insert");
 						 db.collection(conf.collect).findAndModify({"next": 0},[["_id",1]],{$set:{"next":eles[0]["filename"]}},{},cb); 
 					 }else{
 						 cb(null);
 					 }
 		         }); 
-		         console.log("complete insert");
 			 }else{
 				 cb(true);
 			 }
@@ -99,6 +88,7 @@ var update =function(){
 	        html("#container").append(chunks.join(""));
 	        html("#news").html(newstr);
 	        console.log("complete write");
+	        db.close();
 	        fs.writeFile(conf.index, html.html(),{encoding:"utf8"},cb);
 	    }
 	 ],

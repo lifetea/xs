@@ -5,7 +5,7 @@ var schedule = require('node-schedule');
 var capt = new schedule.RecurrenceRule();
 capt.minute = 0;
 var j = schedule.scheduleJob(capt, function(){
-	nov.cont();
+	nov.capt();
 });
 
 var cont = new schedule.RecurrenceRule();

@@ -78,13 +78,13 @@ var capt =function(){
 	    function(cb){
 	        var chunks = [],newstr="";
 	        for(var i = 0,len =eles.length; i<len;i++){
-	            var content = "<li><a href='"+ eles[i].filename +"'>"+eles[i].title+"</a></li>";
+	            var content = "<li class='col-md-6'><a href='"+ eles[i].filename +"'>"+eles[i].title+"</a></li>";
 	            chunks.push(content);
 	        }
 	   		for(var len=links.length,k=links.length-4;k < len;k++){
 	   			var fn = (url.parse(links[k]["attribs"].href).pathname).slice(1,-1);
 	   			var title = links[k]["attribs"].title;
-	   			newstr += "<li><a href='"+ fn +"'>"+title+"</a></li>";
+	   			newstr += "<li class='col-md-6'><a href='"+ fn +"'>"+title+"</a></li>";
 	   		}
 	        var html = $.load(template);
 	        html("#container").append(chunks.join(""));

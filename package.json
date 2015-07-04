@@ -23,5 +23,8 @@
     "mongodb": "^1.4.38",
     "node-schedule": "^0.1.16",
     "request": "^2.58.0"
+  },
+  "devDependencies": {
+    "grunt": "^0.4.5"
   }
 }

@@ -1,4 +1,4 @@
-var nov = require("./nov");
+var nov = require("./lib/nov");
 var schedule = require('node-schedule');
 
 

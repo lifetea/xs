@@ -9,7 +9,7 @@ var j = schedule.scheduleJob(capt, function(){
 });
 
 var cont = new schedule.RecurrenceRule();
-cont.minute = [15,45];
+cont.minute = [1,14,31,46];
 var k = schedule.scheduleJob(cont, function(){
 	nov.cont();
 });
